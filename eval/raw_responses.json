@@ -1,0 +1,698 @@
+[
+  {
+    "id": "q01",
+    "category": "factual_rag",
+    "query": "What is LoRA fine-tuning?",
+    "reference_answer": "LoRA (Low-Rank Adaptation) fine-tunes large models by injecting small trainable low-rank matrices into frozen pre-trained weights, drastically reducing the number of trainable parameters while approaching full fine-tuning performance.",
+    "expected_sources": [
+      "2106.09685"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "LoRA fine-tuning is a method that makes it more tractable to understand how features learned during pre-training are transformed to do well on downstream tasks. It provides a way to adapt large language models without the need for full fine-tuning [1]. This approach has the potential to provide orthogonal improvement over other adaptation methods, and its mechanism is not yet fully clear.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(1 papers)"
+    ],
+    "session_id": "3236a40b-2e2d-42b2-a39c-086cee49a3dc",
+    "elapsed_sec": 61.8
+  },
+  {
+    "id": "q02",
+    "category": "factual_rag",
+    "query": "What rank do LoRA's low-rank matrices A and B typically use?",
+    "reference_answer": "LoRA uses a small rank r (often 4-64) that is far smaller than the dimensions of the original weight matrix, which is the source of its parameter efficiency.",
+    "expected_sources": [
+      "2106.09685"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "LoRA's low-rank matrices A and B typically use very low ranks, specifically one or two, to achieve storage- and compute-efficiency [1]. This is demonstrated using GPT-3 175B as an example, where a rank of one or two suffices even when the full rank is as high as 12,288.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(2 papers)"
+    ],
+    "session_id": "24b08176-64cd-4d75-ada7-241601276f9c",
+    "elapsed_sec": 94.7
+  },
+  {
+    "id": "q03",
+    "category": "factual_rag",
+    "query": "What is retrieval-augmented generation (RAG)?",
+    "reference_answer": "RAG combines a retrieval step over an external knowledge source with a generation step, so the model conditions its answer on retrieved documents rather than relying solely on parametric knowledge.",
+    "expected_sources": [
+      "2005.11401"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Retrieval-augmented generation (RAG) is a method that combines document retrieval with sequence-to-sequence generation to improve performance on knowledge-intensive tasks. This approach uses a retriever to select relevant documents and then generates output based on those documents [1]. The RAG model treats the retrieved documents as latent variables, allowing it to incorporate external knowledge into its predictions.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "url": "http://arxiv.org/abs/2005.11401v4",
+        "arxiv_id": "2005.11401"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(1 papers)"
+    ],
+    "session_id": "7543c3df-04b8-4fa0-a2b4-69f61957ec13",
+    "elapsed_sec": 69.6
+  },
+  {
+    "id": "q04",
+    "category": "factual_rag",
+    "query": "How does federated learning combine with LoRA fine-tuning?",
+    "reference_answer": "Federated sketching approaches apply LoRA-style low-rank adaptation across distributed clients, using sketching/compression to reduce communication cost while collaboratively fine-tuning a shared model without centralizing data.",
+    "expected_sources": [
+      "2501.19389"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Federated learning combines with LoRA fine-tuning by enabling models to be fine-tuned across a group of distributed clients within the same task domain without sharing raw data [1]. This approach is particularly effective due to its ability to reduce model adaptation cost and mitigate challenges associated with client model sizes and data scarcity. The combination of federated learning and LoRA fine-tuning has been shown to enhance performance on specialized or domain-specific applications, while also saving on memory and communication costs [2].",
+    "sources": [
+      {
+        "n": 1,
+        "title": "Federated Sketching LoRA: A Flexible Framework for Heterogeneous Collaborative Fine-Tuning of LLMs",
+        "url": "http://arxiv.org/abs/2501.19389v4",
+        "arxiv_id": "2501.19389"
+      },
+      {
+        "n": 2,
+        "title": "Differentially Private Fine-tuning of Language Models",
+        "url": "http://arxiv.org/abs/2110.06500v2",
+        "arxiv_id": "2110.06500"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(2 papers)"
+    ],
+    "session_id": "44504bac-a416-4595-a8c2-ac83e2d44c24",
+    "elapsed_sec": 101.9
+  },
+  {
+    "id": "q05",
+    "category": "factual_rag",
+    "query": "What does layer-wise LoRA adaptation mean, and why might different layers need different treatment?",
+    "reference_answer": "Layer-wise LoRA varies rank or adapter configuration per layer rather than applying a uniform setting everywhere, based on the idea that layers differ in how much they contribute to task adaptation.",
+    "expected_sources": [
+      "2602.05988"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Layer-wise LoRA adaptation refers to fine-tuning a model's layers individually rather than all at once. This approach allows different layers to be treated differently based on their specific needs, potentially improving performance and reducing memory usage. According to [1], this method can achieve substantial efficiency gains by adapting the model in a more targeted way, with some experiments showing significant reductions in memory usage even when selecting only certain layers.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "Layer-wise LoRA fine-tuning: a similarity metric approach",
+        "url": "http://arxiv.org/abs/2602.05988v1",
+        "arxiv_id": "2602.05988"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(1 papers)"
+    ],
+    "session_id": "f5b42361-565e-4aef-baef-d04309b3965b",
+    "elapsed_sec": 68.9
+  },
+  {
+    "id": "q06",
+    "category": "factual_rag",
+    "query": "How does learning rate choice affect LoRA fine-tuning outcomes?",
+    "reference_answer": "Learning rate has an outsized effect on LoRA training stability and final performance compared to full fine-tuning, since the low-rank adapters are more sensitive to step size given their reduced parameterization.",
+    "expected_sources": [
+      "2602.04998"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Careful learning rate tuning is essential for eliciting strong performance during LoRA fine-tuning on LLMs, and optimal settings are contingent on both the base model and the target problem . The importance of tuning learning rates during LoRA fine-tuning is also highlighted by the fact that some advanced variants may slightly outperform LoRA at higher ranks while lagging behind at lower ones. This suggests that a one-size-fits-all approach to learning rate choice may not be effective for all scenarios [1].",
+    "sources": [
+      {
+        "n": 1,
+        "title": "Learning Rate Matters: Vanilla LoRA May Suffice for LLM Fine-tuning",
+        "url": "http://arxiv.org/abs/2602.04998v2",
+        "arxiv_id": "2602.04998"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(2 papers)"
+    ],
+    "session_id": "f3c4b709-071f-44b7-8b92-83c88bd38620",
+    "elapsed_sec": 113.0
+  },
+  {
+    "id": "q07",
+    "category": "factual_rag",
+    "query": "What is catastrophic forgetting in the context of fine-tuning?",
+    "reference_answer": "Catastrophic forgetting is when a model loses previously learned capabilities as it is fine-tuned on new data or tasks, because updates to shared parameters overwrite earlier learned representations.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Catastrophic forgetting occurs when a machine learning model forgets previously learned information during fine-tuning, which can hinder its ability to adapt to new tasks [1]. This phenomenon is particularly relevant in the context of life-long learning, where models are expected to retain knowledge acquired over time. The concept of catastrophic forgetting highlights the need for more robust and efficient continual learning strategies.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "Overcoming Catastrophic Forgetting by XAI",
+        "url": "http://arxiv.org/abs/2211.14177v1",
+        "arxiv_id": "2211.14177"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(1 papers)"
+    ],
+    "session_id": "75969846-854c-4cb9-9c76-89380a707a2c",
+    "elapsed_sec": 77.8
+  },
+  {
+    "id": "q08",
+    "category": "factual_rag",
+    "query": "What embedding model does this system use for chunk retrieval?",
+    "reference_answer": "This is a question about the system's own implementation, not about paper content, and should not be answerable from paper excerpts alone.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "This question is about the system's own implementation, not about paper content. I can only answer questions grounded in the research papers I have access to.",
+    "sources": [],
+    "tool_calls": [
+      "planner:answer_now(self_referential)",
+      "synthesizer(notice_only)"
+    ],
+    "session_id": "c8bc7013-e1e9-44f3-854a-380bfd8b551c",
+    "elapsed_sec": 2.1
+  },
+  {
+    "id": "q09",
+    "category": "multi_paper_synthesis",
+    "query": "Do different papers agree on how LoRA's performance compares to full fine-tuning?",
+    "reference_answer": "Most papers report LoRA reaches performance close to full fine-tuning on many tasks, though some (e.g. partial fine-tuning comparisons) report gaps on certain task types; the answer should surface any such disagreement rather than picking one claim silently.",
+    "expected_sources": [
+      "2106.09685",
+      "2102.03983"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "LoRA's performance is reported to be better than full fine-tuning in one paper [1], but there is no direct comparison between LoRA and full fine-tuning in the other two papers. The first paper states that \"LoRA performs better than prior approaches, including full fine-tuning\" [1]. However, the second and third papers do not make any claims about the relative performance of LoRA compared to full fine-tuning.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(3 papers)"
+    ],
+    "session_id": "37988c78-fcff-45ce-b159-378398bf5d2f",
+    "elapsed_sec": 103.9
+  },
+  {
+    "id": "q10",
+    "category": "multi_paper_synthesis",
+    "query": "What tradeoffs are discussed across papers when choosing a LoRA rank or layer configuration?",
+    "reference_answer": "Papers generally discuss a tradeoff where higher rank/more adapted layers increases expressiveness and trainable parameters but with diminishing returns, while lower rank or fewer adapted layers is more efficient but may underfit complex tasks.",
+    "expected_sources": [
+      "2106.09685",
+      "2602.05988"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "When choosing a LoRA rank or layer configuration, tradeoffs are discussed in terms of hardware requirements and interpretability. According to [1], the low-rank structure not only reduces memory requirements but also provides better interpretability of how the update weights are correlated with pre-trained weights. However, this comes at the cost of potentially affecting task performances, as seen in the large reduction of trainable parameters (up to 10,000\u00d7) without adversely affecting task performances on GPT-3 175B [1]. In contrast, [2] highlights the importance of transformation invariance in LoRA optimization, which can lead to inefficient learning and sub-optimal solutions if not addressed.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      },
+      {
+        "n": 2,
+        "title": "LoRA Done RITE: Robust Invariant Transformation Equilibration for LoRA Optimization",
+        "url": "http://arxiv.org/abs/2410.20625v2",
+        "arxiv_id": "2410.20625"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(3 papers)"
+    ],
+    "session_id": "2fc91892-d14e-4220-8754-d1583ace2066",
+    "elapsed_sec": 113.1
+  },
+  {
+    "id": "q11",
+    "category": "multi_paper_synthesis",
+    "query": "Summarize what the different LoRA variant papers you have change relative to the original LoRA method.",
+    "reference_answer": "Should aggregate distinct modifications (e.g. layer-wise configuration, federated/sketched training, dropout/regularization changes, learning rate sensitivity) across sources without merging distinct papers' specific findings into a single unattributed claim.",
+    "expected_sources": [
+      "2106.09685",
+      "2602.05988",
+      "2501.19389",
+      "2403.00946"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "The LoRA variant papers have made changes to improve upon the original method's optimization process. According to [1], one of these variants is LoRA-RITE, which proposes a new optimization approach called Robust Invariant Transformation Equilibration (RITE) for LoRA. This change aims to address issues with the original LoRA method's optimization process.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA Done RITE: Robust Invariant Transformation Equilibration for LoRA Optimization",
+        "url": "http://arxiv.org/abs/2410.20625v2",
+        "arxiv_id": "2410.20625"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(2 papers)"
+    ],
+    "session_id": "94d68dba-46c1-4086-bcfe-b58872be984e",
+    "elapsed_sec": 84.6
+  },
+  {
+    "id": "q12",
+    "category": "compare_papers",
+    "query": "Compare standard LoRA fine-tuning and layer-wise LoRA in terms of parameter efficiency and performance.",
+    "reference_answer": "Should produce a structured comparison covering method (uniform low-rank adapters vs. per-layer varied configuration), parameter footprint (layer-wise can be more efficient by concentrating capacity where it matters), and performance (layer-wise aims to match or beat uniform LoRA at similar or lower cost).",
+    "expected_sources": [
+      "2106.09685",
+      "2602.05988"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "The two papers, LoRA-C: Parameter-Efficient Fine-Tuning of Robust CNN for IoT Devices [1] and Layer-wise LoRA fine-tuning: a similarity metric approach [2], explore the concept of parameter-efficient fine-tuning using Low-Rank Adaptation (LoRA). However, they differ in their approaches to achieving this efficiency. \n\nThe first paper, LoRA-C, focuses on reducing the number of updated parameters by freezing most of the model's weights and only updating a subset of parameters, including the replaced first layer, last fully connected layer, added A and B matrices, and other parameters [1]. This approach leads to a significant reduction in fine-tuning parameters, with up to 99.35% fewer parameters than full parameter fine-tuning ResNet-18 [1].\n\nIn contrast, the second paper, Layer-wise LoRA fine-tuning: a similarity metric approach, takes a more nuanced approach by selecting specific layers for fine-tuning based on their similarity to the original model's performance [2]. This method achieves substantial efficiency gains in terms of memory usage, reducing it by around 15% even when selecting the first layers. However, this comes at the cost of potentially reduced performance, as seen in Figure 4 where layer-wise LoRA fine-tuning results in a drop in predictive performance for some tasks [2].\n\nWhile both approaches aim to reduce the computational requirements of fine-tuning, they seem to address different aspects of the problem. LoRA-C focuses on reducing the number of updated parameters, whereas Layer-wise LoRA fine-tuning prioritizes memory efficiency and adaptability. The choice between these two methods depends on the specific needs and constraints of a particular application or device.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA-C: Parameter-Efficient Fine-Tuning of Robust CNN for IoT Devices",
+        "url": "http://arxiv.org/abs/2410.16954v2",
+        "arxiv_id": "2410.16954"
+      },
+      {
+        "n": 2,
+        "title": "Layer-wise LoRA fine-tuning: a similarity metric approach",
+        "url": "http://arxiv.org/abs/2602.05988v1",
+        "arxiv_id": "2602.05988"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:compare_papers",
+      "comparator(2 papers)"
+    ],
+    "session_id": "7c856633-7c88-4b03-8fe4-11e3db0784b0",
+    "elapsed_sec": 158.9
+  },
+  {
+    "id": "q13",
+    "category": "compare_papers",
+    "query": "What's the difference between LoRA fine-tuning and partial fine-tuning approaches?",
+    "reference_answer": "Should compare trainable parameter count, compute/memory cost, and typical performance parity, structured as method/results/limitations rather than free-form prose.",
+    "expected_sources": [
+      "2106.09685",
+      "2102.03983"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "The two papers, [1] and [2], present distinct approaches to addressing challenges in fine-tuning large language models (LLMs). Layer-wise LoRA fine-tuning, as discussed in [1], aims to reduce the computational cost associated with fine-tuning LLMs by introducing a similarity metric approach. This method involves adjusting the weights of specific layers during fine-tuning, allowing for more efficient training.\n\nIn contrast, partial fine-tuning, proposed in [2], focuses on addressing the issue of biased or harmful knowledge transfer from base classes to novel classes in few-shot learning tasks. By freezing or fine-tuning particular layers with different learning rates, this approach enables the selective transfer of relevant knowledge while preventing the propagation of unwanted information.\n\nWhile both methods address specific challenges in fine-tuning LLMs, they cater to distinct problems and may not be directly comparable. Layer-wise LoRA fine-tuning is geared towards reducing computational costs, whereas partial fine-tuning targets improving few-shot learning performance by controlling knowledge transfer. The choice between these approaches ultimately depends on the specific requirements of the task at hand.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "Layer-wise LoRA fine-tuning: a similarity metric approach",
+        "url": "http://arxiv.org/abs/2602.05988v1",
+        "arxiv_id": "2602.05988"
+      },
+      {
+        "n": 2,
+        "title": "Partial Is Better Than All: Revisiting Fine-tuning Strategy for Few-shot Learning",
+        "url": "http://arxiv.org/abs/2102.03983v1",
+        "arxiv_id": "2102.03983"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:compare_papers",
+      "comparator(2 papers)"
+    ],
+    "session_id": "ccdc115b-26c3-4f5f-b1ec-272c75e468cd",
+    "elapsed_sec": 129.5
+  },
+  {
+    "id": "q14",
+    "category": "compare_papers",
+    "query": "Which is better for large-scale fine-tuning: standard LoRA or federated sketching LoRA?",
+    "reference_answer": "Should avoid declaring a single universal winner and instead explain the two solve different problems (single-node parameter efficiency vs. distributed/communication-constrained training), noting the tradeoffs of each rather than picking one as strictly better.",
+    "expected_sources": [
+      "2106.09685",
+      "2501.19389"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "The two papers present different approaches to addressing the challenges of fine-tuning large language models. LoRA, proposed in [1], reduces the number of trainable parameters by injecting rank decomposition matrices into each layer of the Transformer architecture, making it a more feasible option for large-scale fine-tuning. In contrast, Federated Sketching LoRA, presented in [2], aims to adapt LoRA ranks to heterogeneous client capabilities, reducing computation and communication overhead.\n\nWhile LoRA is designed to handle the computational requirements of large models, Federated Sketching LoRA addresses the issue of underutilized resources on constrained clients. The two approaches may be seen as complementary rather than mutually exclusive solutions. LoRA can be used in scenarios where computational resources are abundant, whereas Federated Sketching LoRA is more suitable for distributed or collaborative fine-tuning settings with heterogeneous client capabilities. Ultimately, the choice between these approaches depends on the specific requirements and constraints of the task at hand.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      },
+      {
+        "n": 2,
+        "title": "Federated Sketching LoRA: A Flexible Framework for Heterogeneous Collaborative Fine-Tuning of LLMs",
+        "url": "http://arxiv.org/abs/2501.19389v4",
+        "arxiv_id": "2501.19389"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:compare_papers",
+      "comparator(2 papers)"
+    ],
+    "session_id": "92e9bd30-d4e2-4002-97d1-0c93085cbde0",
+    "elapsed_sec": 117.0
+  },
+  {
+    "id": "q15",
+    "category": "compare_papers",
+    "query": "Compare the top 2 fine-tuning approaches for adapting large language models.",
+    "reference_answer": "Requires the agent to have at least two distinct papers already retrieved before comparing; if not, should fall back to retrieving/searching first rather than fabricating a comparison from one source.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": "error: 500 Server Error: Internal Server Error for url: http://localhost:8003/chat",
+    "answer": "",
+    "sources": [],
+    "tool_calls": [],
+    "elapsed_sec": null,
+    "request_failed": true
+  },
+  {
+    "id": "q16",
+    "category": "agentic_routing",
+    "query": "Find recent papers on reinforcement learning from human feedback.",
+    "reference_answer": "Should trigger a fresh arxiv search since this is a new topic not yet ingested, rather than answering from possibly-irrelevant local context.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Recent papers on reinforcement learning from human feedback include \"RLHF-Blender: A Configurable Interactive Interface for Learning from Diverse Human Feedback\" [1], which proposes a configurable interface to learn reward models from diverse sources of human feedback and considers human factors involved in providing different types of feedback. This paper highlights the importance of studying the characteristics of feedback in human studies to improve the estimation of irrationality and bias, and ultimately learning based on these reward models. The authors also note that previous work has assumed optimal human feedback, but it is generally sub-optimal and noisy [1].",
+    "sources": [
+      {
+        "n": 1,
+        "title": "RLHF-Blender: A Configurable Interactive Interface for Learning from Diverse Human Feedback",
+        "url": "http://arxiv.org/abs/2308.04332v1",
+        "arxiv_id": "2308.04332"
+      }
+    ],
+    "tool_calls": [
+      "planner:search_arxiv",
+      "search_arxiv(5)",
+      "fetch_and_ingest(new=0, cached=3, failed=0, chunks_added=0)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(2 papers)"
+    ],
+    "session_id": "10d9047f-d5a2-41bb-a5c8-4fcc9a3e3bf0",
+    "elapsed_sec": 147.0
+  },
+  {
+    "id": "q17",
+    "category": "agentic_routing",
+    "query": "What is LoRA fine-tuning?",
+    "reference_answer": "Should answer directly from already-ingested local papers without triggering a redundant new arxiv search, since LoRA papers are expected to already be in the local store from prior ingestion.",
+    "expected_sources": [
+      "2106.09685"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "LoRA fine-tuning is a method that makes it more tractable to understand how features learned during pre-training are transformed to do well on downstream tasks. It provides a way to adapt large language models without the need for full fine-tuning [1]. This approach has the potential to provide orthogonal improvement over other adaptation methods, and its mechanism is not yet fully clear.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(1 papers)"
+    ],
+    "session_id": "5b79db7e-580d-48bb-80b8-ee4a433f090f",
+    "elapsed_sec": 79.1
+  },
+  {
+    "id": "q18",
+    "category": "agentic_routing",
+    "query": "What is LoRA fine-tuning, and then compare it to layer-wise LoRA?",
+    "reference_answer": "Should chain retrieval for standard LoRA, then correctly route to compare_papers once a second relevant paper (layer-wise LoRA) is available, producing a two-hop flow.",
+    "expected_sources": [
+      "2106.09685",
+      "2602.05988"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "LoRA fine-tuning, introduced in [2], is a method for adapting large language models to downstream tasks without fully retraining them from scratch. This approach aims to make it more tractable to understand how features learned during pre-training are transformed to perform well on specific tasks. LoRA achieves this by modifying the weight matrices of the model using low-rank adaptation, which can potentially provide orthogonal improvement over other adaptation methods.\n\nIn contrast, layer-wise LoRA fine-tuning, as described in [1], takes a different approach. This method focuses on applying LoRA to individual layers of the model, rather than the entire model at once. The authors propose a similarity metric approach to determine which layers should be adapted using LoRA. By doing so, they aim to improve the efficiency and effectiveness of LoRA fine-tuning.\n\nWhile both approaches share the goal of adapting large language models to downstream tasks, they differ in their application and methodology. Layer-wise LoRA fine-tuning may offer more flexibility and control over which layers are adapted, but it also introduces additional complexity through the use of a similarity metric. On the other hand, standard LoRA fine-tuning provides a more straightforward approach, but its effectiveness may depend on the quality of the initial weight matrices. Ultimately, the choice between these approaches will depend on the specific needs and constraints of the task at hand.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "Layer-wise LoRA fine-tuning: a similarity metric approach",
+        "url": "http://arxiv.org/abs/2602.05988v1",
+        "arxiv_id": "2602.05988"
+      },
+      {
+        "n": 2,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:compare_papers",
+      "comparator(2 papers)"
+    ],
+    "session_id": "6100dd2a-6e00-4fa1-a3f5-4879a5264fd1",
+    "elapsed_sec": 129.5
+  },
+  {
+    "id": "q19",
+    "category": "agentic_routing",
+    "query": "asdkjfh laksjdf compare papers???",
+    "reference_answer": "Should not crash; with no coherent topic and no retrieved docs, should either ask for clarification or state that it cannot identify relevant papers to compare.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "I couldn't identify a clear research question in that message \u2014 it doesn't seem to reference a coherent topic. Could you rephrase it?",
+    "sources": [],
+    "tool_calls": [
+      "planner:answer_now(gibberish)",
+      "synthesizer(notice_only)"
+    ],
+    "session_id": "64694b8a-3782-495f-ad60-6e079afeccb3",
+    "elapsed_sec": 2.1
+  },
+  {
+    "id": "q20a",
+    "category": "memory_recall",
+    "query": "What is LoRA fine-tuning?",
+    "reference_answer": "LoRA fine-tunes models via small trainable low-rank matrices injected into frozen weights, reducing trainable parameters while approaching full fine-tuning performance.",
+    "expected_sources": [
+      "2106.09685"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "LoRA fine-tuning is a method that makes it more tractable to understand how features learned during pre-training are transformed to perform well on downstream tasks. It provides a way to adapt large language models without the need for full fine-tuning [1]. This approach has the potential to offer orthogonal improvement over other adaptation methods, and its mechanism is not yet fully clear.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "http://arxiv.org/abs/2106.09685v2",
+        "arxiv_id": "2106.09685"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(1 papers)"
+    ],
+    "session_id": "728d2c8e-5727-47d7-8b86-e4946284dff5",
+    "elapsed_sec": 70.4
+  },
+  {
+    "id": "q20b",
+    "category": "memory_recall",
+    "query": "What did we just discuss?",
+    "reference_answer": "Should recall that the prior turn covered LoRA fine-tuning, answering from memory_context/memory_snapshot rather than triggering a new, unrelated arxiv search.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "So far we've covered: downstream tasks, pre-training, LoRA fine-tuning.\n\nKey points so far:\n- The mechanism of LoRA fine-tuning is not yet fully clear.\n- LoRA fine-tuning provides a way to adapt large language models without full fine-tuning.",
+    "sources": [],
+    "tool_calls": [
+      "planner:answer_now",
+      "synthesizer(from_memory)"
+    ],
+    "session_id": "728d2c8e-5727-47d7-8b86-e4946284dff5",
+    "elapsed_sec": 22.4
+  },
+  {
+    "id": "q21a",
+    "category": "memory_recall",
+    "query": "Tell me about applying LoRA to video models.",
+    "reference_answer": "Video LoRA fine-tuning applies low-rank adaptation to video generation/understanding models, adapting large video models efficiently in the same spirit as LoRA for language models.",
+    "expected_sources": [
+      "2510.27364"
+    ],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Applying LoRA to video models involves adapting specific layers of a model to customize motion and appearance. According to [1], this can be done by identifying motion- and appearance-specific layers and applying LoRA modules for per-layer adaptation. This approach has been used in various applications, including Customize-A-Video, which applies LoRA to the temporal attention layers of a text-to-video diffusion model.",
+    "sources": [
+      {
+        "n": 1,
+        "title": "In-Context Sync-LoRA for Portrait Video Editing",
+        "url": "http://arxiv.org/abs/2512.03013v1",
+        "arxiv_id": "2512.03013"
+      }
+    ],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(2 papers)"
+    ],
+    "session_id": "cef7f0b2-3f13-4923-b864-7df863342bf2",
+    "elapsed_sec": 113.9
+  },
+  {
+    "id": "q21b",
+    "category": "memory_recall",
+    "query": "Can you recap the topics we've covered in this session so far?",
+    "reference_answer": "Should list topics from memory (e.g. QLoRA, and LoRA if same session includes q20), not fabricate topics never discussed.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "So far we've covered: appearance adaptation, motion adaptation, video models, LoRA.\n\nKey points so far:\n- Applying LoRA to video models involves adapting specific layers for motion and appearance customization.",
+    "sources": [],
+    "tool_calls": [
+      "planner:answer_now",
+      "synthesizer(from_memory)"
+    ],
+    "session_id": "cef7f0b2-3f13-4923-b864-7df863342bf2",
+    "elapsed_sec": 26.5
+  },
+  {
+    "id": "q22",
+    "category": "memory_recall",
+    "query": "Have you already read the LoRA paper before?",
+    "reference_answer": "Should check papers_read via has_read_paper/get_paper and answer based on cache state rather than guessing; if cached, should say so and reuse it instead of re-fetching.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "Yes \u2014 I've already read 'LoRA: Low-Rank Adaptation of Large Language Models' (2106.09685). I can reuse the cached copy instead of re-fetching it.",
+    "sources": [],
+    "tool_calls": [
+      "planner:answer_now(paper_read_status)",
+      "synthesizer(paper_read_status)"
+    ],
+    "session_id": "ebb2e702-2079-47d8-b14f-67b8d6587819",
+    "elapsed_sec": 2.2
+  },
+  {
+    "id": "q23",
+    "category": "memory_recall",
+    "query": "What did we discuss?",
+    "reference_answer": "In a brand-new session with no prior turns, should state that nothing has been discussed yet rather than hallucinating prior context.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "We haven't discussed anything yet in this session.",
+    "sources": [],
+    "tool_calls": [
+      "planner:answer_now",
+      "synthesizer(no_docs)"
+    ],
+    "session_id": "67588755-e671-49d3-bf1a-84b7105ee222",
+    "elapsed_sec": 10.7
+  },
+  {
+    "id": "q24",
+    "category": "edge_case",
+    "query": "What does the paper 9999.99999 say about fine-tuning?",
+    "reference_answer": "Should report that no such paper could be found/fetched rather than fabricating content for a nonexistent arxiv ID.",
+    "expected_sources": [],
+    "expected_status": 200,
+    "actual_status": 200,
+    "answer": "I could not find paper 9999.99999 in my local database or via arXiv search. Either the paper ID does not exist or it hasn't been ingested yet.",
+    "sources": [],
+    "tool_calls": [
+      "planner:retrieve_local(prefer_local)",
+      "retrieve_local(6)",
+      "planner:answer_now",
+      "synthesizer(paper_not_found)"
+    ],
+    "session_id": "70ef6de9-c679-443c-afb8-ff29da455e79",
+    "elapsed_sec": 45.6
+  },
+  {
+    "id": "q25",
+    "category": "edge_case",
+    "query": "",
+    "reference_answer": "Should return a 400 error (empty query) rather than attempting to process an empty request.",
+    "expected_sources": [],
+    "expected_status": 400,
+    "actual_status": 400,
+    "answer": "",
+    "sources": [],
+    "tool_calls": [],
+    "elapsed_sec": null,
+    "is_empty_query_test": true
+  }
+]

@@ -1,0 +1,25 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# VS Code
+.vscode/
+
+# Chroma database
+data/chroma/
+
+# SQLite session / eval memory (local runtime state)
+data/*.db
+
+# Downloaded papers
+data/raw/
+
+# OS files
+.DS_Store
+Thumbs.db
